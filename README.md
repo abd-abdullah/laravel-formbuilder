@@ -1,17 +1,8 @@
 
 # Laravel Form Builder Package
 
-Note: THIS PACKAGE MAY NOT B COMPATIBLE WITH LARAVEL 7 or 8. I am no longer maintaining this package so please use the code for reference on how to create a jquery form builder.
-
 A [Laravel](https://laravel.com) package for creating a drag-and-drop form builder using the [JQuery Form Builder](https://formbuilder.online).
 
-Demo: [http://demoform.jazmy.com/](http://demoform.jazmy.com/)
-
-*Note: Features like email, registration and file uploads are disabled in the demo*
-
-Screenshot:
-
-![alt text](http://demoform.jazmy.com/img/formbuilderdemo_screenshot.jpg "Form Builder Screenshot")
 
 The forms fields are saved as json and stored in your database. A member of your site can create, edit and delete forms. Forms belong to the users that created them and each form has a unique link that can be shared publicly.
 
@@ -29,7 +20,7 @@ Form permission options
 ## Requirements
 + Laravel 5.7
 + MySQL
-+ [Laravel Authentication](https://laravel.com/docs/5.7/authentication) - php artisan make:auth
++ [Laravel Authentication](https://laravel.com/docs/8.x/authentication) - php artisan make:auth
 
 *If you are looking for a managed web host, with easy laravel site creation, then I highly recommend [Cloudways](https://www.cloudways.com/en/?id=45081). Cloudways will setup a laravel site and mysql database in minutes.*
 
@@ -49,7 +40,7 @@ This custom package takes a couple steps to install but I will try to make it as
 Edit your composer.json file manually or simply type
 
 ```bash
-composer require jazmy/jaz-form-builder
+composer require abdullah/laravel-form-builder
 ```
 
 ### Step Two:
@@ -102,7 +93,7 @@ php artisan vendor:publish --tag formbuilder-public
 ```
 Or you can publish everything at once with
 ```bash
-php artisan vendor:publish --provider="jazmy\FormBuilder\FormBuilderServiceProvider"
+php artisan vendor:publish --provider="abdullah\FormBuilder\FormBuilderServiceProvider"
 ```
 
 ### Step Seven:
@@ -123,7 +114,7 @@ http://your.domain.com/form-builder/my-submissions
 You can access forms and submissions that belong to a user in your application. To use the trait add a use statement to your user model class.
 
 ```php
-use jazmy\FormBuilder\Traits\HasFormBuilderTraits;
+use abdullah\FormBuilder\Traits\HasFormBuilderTraits;
 
 class User extends Authenticatable
 {
@@ -142,10 +133,10 @@ $user->forms;
 // get the user's submissions
 $user->submissions;
 
-// or use static methods on the jazmy\FormBuilder\Models\Form class
+// or use static methods on the abdullah\FormBuilder\Models\Form class
 $user_forms = Form::getForUser($user); // returns a paginated resultset
 
-// the jazmy\FormBuilder\Models\Submission class also has a static method for getting the submissions
+// the abdullah\FormBuilder\Models\Submission class also has a static method for getting the submissions
 // that belong to a user
 $my_submissions = Submission::getForUser($user); // returns a paginated resultset
 ```
