@@ -40,7 +40,7 @@ This custom package takes a couple steps to install but I will try to make it as
 Edit your composer.json file manually or simply type
 
 ```bash
-composer require abdullah/laravel-form-builder
+composer require abd/laravel-form-builder
 ```
 
 ### Step Two:
@@ -93,7 +93,7 @@ php artisan vendor:publish --tag formbuilder-public
 ```
 Or you can publish everything at once with
 ```bash
-php artisan vendor:publish --provider="abdullah\FormBuilder\FormBuilderServiceProvider"
+php artisan vendor:publish --provider="abd\FormBuilder\FormBuilderServiceProvider"
 ```
 
 ### Step Seven:
@@ -114,7 +114,7 @@ http://your.domain.com/form-builder/my-submissions
 You can access forms and submissions that belong to a user in your application. To use the trait add a use statement to your user model class.
 
 ```php
-use abdullah\FormBuilder\Traits\HasFormBuilderTraits;
+use abd\FormBuilder\Traits\HasFormBuilderTraits;
 
 class User extends Authenticatable
 {
@@ -133,10 +133,10 @@ $user->forms;
 // get the user's submissions
 $user->submissions;
 
-// or use static methods on the abdullah\FormBuilder\Models\Form class
+// or use static methods on the abd\FormBuilder\Models\Form class
 $user_forms = Form::getForUser($user); // returns a paginated resultset
 
-// the abdullah\FormBuilder\Models\Submission class also has a static method for getting the submissions
+// the abd\FormBuilder\Models\Submission class also has a static method for getting the submissions
 // that belong to a user
 $my_submissions = Submission::getForUser($user); // returns a paginated resultset
 ```
