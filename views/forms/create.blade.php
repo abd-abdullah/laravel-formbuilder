@@ -1,23 +1,26 @@
-@extends('formbuilder::layout')
+ @extends('formbuilder::layout')
 
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card">
                 <div class="card-header">
-                    <h5 class="card-title">
-                        {{ $pageTitle ?? '' }}
-
-                        <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-sm btn-primary float-md-right">
-                            <i class="fa fa-arrow-left"></i> Back To My Form
-                        </a>
-                    </h5>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h2>{{ $pageTitle ?? '' }}</h2>
+                        </div>
+                        <div class="col-lg-8">
+                            <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-sm btn-primary pull-right">
+                                <i class="fa fa-arrow-left"></i> Back To My Form
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <form action="{{ route('formbuilder::forms.store') }}" method="POST" id="createFormForm">
-                    @csrf 
-                    
+                    @csrf
+
                     <div class="card-body">
                         <div class="row">
                             <div class="col-md-4">
@@ -74,7 +77,7 @@
                         <div class="row">
                             <div class="col-12">
                                 <div class="alert alert-info" role="alert">
-                                    <i class="fa fa-info-circle"></i> 
+                                    <i class="fa fa-info-circle"></i>
                                     Click on or drag and drop components onto the main panel to build your form content.
                                 </div>
 
@@ -86,8 +89,8 @@
 
                 <div class="card-footer" id="fb-editor-footer" style="display: none;">
                     <button type="button" class="btn btn-primary fb-clear-btn">
-                        <i class="fa fa-remove"></i> Clear Form 
-                    </button> 
+                        <i class="fa fa-remove"></i> Clear Form
+                    </button>
                     <button type="button" class="btn btn-primary fb-save-btn">
                         <i class="fa fa-save"></i> Submit &amp; Save Form
                     </button>

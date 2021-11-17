@@ -20,12 +20,12 @@ return [
      * The stack section in the layout file to output js content
      * Define something like @stack('stack_name') and provide the 'stack_name here'
      */
-    'layout_js_stack' => 'scripts',
+    'layout_js_stack' => 'script',
 
     /**
      * The stack section in the layout file to output css content
      */
-    'layout_css_stack' => 'styles',
+    'layout_css_stack' => 'css',
 
     /**
      * The class that will provide the roles we will display on form create or edit pages?

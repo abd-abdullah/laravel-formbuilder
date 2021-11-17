@@ -1,5 +1,5 @@
 .fb-editor {
-	background-image: #f2f2f2; 
+	background-image: #f2f2f2;
 	/*background: url('http://formbuilder.readthedocs.io/en/latest/img/noise.png');*/
 }
 .five {
@@ -19,4 +19,8 @@
 }
 .d-inline-block {
 	display: inline-block !important;
+}
+
+.footable-filtering-search .dropdown-toggle{
+    display: none;
 }

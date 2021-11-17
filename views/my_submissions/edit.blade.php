@@ -6,19 +6,22 @@
         <div class="col-md-8">
             <div class="card rounded-0">
                 <div class="card-header">
-                    <h5 class="card-title">
-                        {{ $pageTitle }}
-
-                        <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Submissions">
-                            <i class="fa fa-arrow-left"></i> 
-                        </a>
-                    </h5>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <h3>{{ $pageTitle }}</h3>
+                        </div>
+                        <div class="col-lg-6">
+                            <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Submissions">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 <form action="{{ route('formbuilder::my-submissions.update', $submission->id) }}" method="POST" id="submitForm" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
-                    
+
                     <div class="card-body">
                         <div id="fb-render"></div>
                     </div>

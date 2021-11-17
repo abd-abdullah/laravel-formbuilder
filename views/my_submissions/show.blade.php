@@ -6,37 +6,27 @@
         <div class="col-md-8">
             <div class="card rounded-0">
                 <div class="card-header">
-                    <h5 class="card-title">
-                        Viewing my submission for form 
-                        <strong>{{ $submission->form->name }}</strong>
-                        
-                        <div class="btn-toolbar float-md-right" role="toolbar">
-                            <div class="btn-group" role="group" aria-label="First group">
-                                <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm" title="Back To My Submissions">
-                                    <i class="fa fa-arrow-left"></i> 
-                                </a>
-                                @if($submission->form->allowsEdit())
-                                    <a href="{{ route('formbuilder::my-submissions.edit', $submission) }}" class="btn btn-primary btn-sm" title="Edit this submission">
-                                        <i class="fa fa-pencil"></i> 
-                                    </a>
-                                @endif
-                                {{-- <form action="{{ route('formbuilder::my-submissions.destroy', [$submission->id]) }}" method="POST" id="deleteSubmissionForm_{{ $submission->id }}" class="d-inline-block">
-                                    @csrf 
-                                    @method('DELETE')
-
-                                    <button type="submit" class="btn btn-danger btn-sm rounded-0 confirm-form" data-form="deleteSubmissionForm_{{ $submission->id }}" data-message="Delete submission" title="Delete this submission?">
-                                        <i class="fa fa-trash-o"></i> 
-                                    </button>
-                                </form> --}}
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-10">
+                            <h4>Viewing my submission for form <strong>{{ $submission->form->name }}</strong></h4>
                         </div>
-                    </h5>
+                        <div class="col-lg-2">
+                            <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm pull-right" title="Back To My Submissions">
+                                <i class="fa fa-arrow-left"></i>
+                            </a>
+                            @if($submission->form->allowsEdit())
+                                <a href="{{ route('formbuilder::my-submissions.edit', $submission) }}" class="pull-right btn btn-primary btn-sm mr-1" title="Edit this submission">
+                                    <i class="fa fa-pencil"></i>
+                                </a>
+                            @endif
+                        </div>
+                    </div>
                 </div>
 
                 <ul class="list-group list-group-flush">
                     @foreach($form_headers as $header)
                         <li class="list-group-item">
-                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong> 
+                            <strong>{{ $header['label'] ?? title_case($header['name']) }}: </strong>
                             <span class="float-right">
                                 {{ $submission->renderEntryContent($header['name'], $header['type']) }}
                             </span>
@@ -54,19 +44,19 @@
 
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">
-                        <strong>Form: </strong> 
+                        <strong>Form: </strong>
                         <span class="float-right">{{ $submission->form->name }}</span>
                     </li>
                     <li class="list-group-item">
-                        <strong>Submitted By: </strong> 
+                        <strong>Submitted By: </strong>
                         <span class="float-right">{{ $submission->user->name ?? 'Guest' }}</span>
                     </li>
                     <li class="list-group-item">
-                        <strong>Last Updated On: </strong> 
+                        <strong>Last Updated On: </strong>
                         <span class="float-right">{{ $submission->updated_at->toDayDateTimeString() }}</span>
                     </li>
                     <li class="list-group-item">
-                        <strong>Submitted On: </strong> 
+                        <strong>Submitted On: </strong>
                         <span class="float-right">{{ $submission->created_at->toDayDateTimeString() }}</span>
                     </li>
                 </ul>

@@ -3,24 +3,22 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-10">
+        <div class="col-md-12">
             <div class="card rounded-0">
                 <div class="card-header">
-                    <h5 class="card-title">
-                        Forms
-
-                        <div class="btn-toolbar float-md-right" role="toolbar">
-                            <div class="btn-group" role="group" aria-label="Third group">
-                                <a href="{{ route('formbuilder::forms.create') }}" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-plus-circle"></i> Create a New Form
-                                </a>
-
-                                <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary btn-sm">
-                                    <i class="fa fa-th-list"></i> My Submissions
-                                </a>
-                            </div>
+                    <div class="row">
+                        <div class="col-lg-4">
+                            <h2>Forms</h2>
                         </div>
-                    </h5>
+                        <div class="col-lg-8">
+                            <a href="{{ route('formbuilder::forms.create') }}" class="pull-right btn btn-primary btn-sm">
+                                <i class="fa fa-plus-circle"></i> Create a New Form
+                            </a>
+                            <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-cyan btn-sm mr-1 pull-right">
+                                <i class="fa fa-th-list"></i> My Submissions
+                            </a>
+                        </div>
+                    </div>
                 </div>
 
                 @if($forms->count())
@@ -49,21 +47,21 @@
                                                 <i class="fa fa-th-list"></i> Data
                                             </a>
                                             <a href="{{ route('formbuilder::forms.show', $form) }}" class="btn btn-primary btn-sm" title="Preview form '{{ $form->name }}'">
-                                                <i class="fa fa-eye"></i> 
-                                            </a> 
+                                                <i class="fa fa-eye"></i>
+                                            </a>
                                             <a href="{{ route('formbuilder::forms.edit', $form) }}" class="btn btn-primary btn-sm" title="Edit form">
-                                                <i class="fa fa-pencil"></i> 
-                                            </a> 
+                                                <i class="fa fa-pencil"></i>
+                                            </a>
                                             <button class="btn btn-primary btn-sm clipboard" data-clipboard-text="{{ route('formbuilder::form.render', $form->identifier) }}" data-message="" data-original="" title="Copy form URL to clipboard">
-                                                <i class="fa fa-clipboard"></i> 
-                                            </button> 
+                                                <i class="fa fa-clipboard"></i>
+                                            </button>
 
                                             <form action="{{ route('formbuilder::forms.destroy', $form) }}" method="POST" id="deleteFormForm_{{ $form->id }}" class="d-inline-block">
-                                                @csrf 
+                                                @csrf
                                                 @method('DELETE')
 
                                                 <button type="submit" class="btn btn-danger btn-sm confirm-form" data-form="deleteFormForm_{{ $form->id }}" data-message="Delete form '{{ $form->name }}'?" title="Delete form '{{ $form->name }}'">
-                                                    <i class="fa fa-trash-o"></i> 
+                                                    <i class="fa fa-trash-o"></i>
                                                 </button>
                                             </form>
                                         </td>
@@ -82,7 +80,7 @@
                         <h4 class="text-danger text-center">
                             No form to display.
                         </h4>
-                    </div>  
+                    </div>
                 @endif
             </div>
         </div>
