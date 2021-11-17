@@ -2,7 +2,7 @@
 
 Route::middleware('web')
 	->prefix(config('formbuilder.url_path', '/form-builder'))
-	->namespace('jazmy\FormBuilder\Controllers')
+	->namespace('abd\FormBuilder\Controllers')
 	->name('formbuilder::')
 	->group(function () {
 		Route::redirect('/', url(config('formbuilder.url_path', '/form-builder').'/forms'));

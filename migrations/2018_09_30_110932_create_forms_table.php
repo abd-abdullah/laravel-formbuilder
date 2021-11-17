@@ -1,9 +1,9 @@
 <?php
 /*--------------------
-https://github.com/jazmy/laravelformbuilder
+https://github.com/abd-abdullah/laravel-formbuilder
 Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
+Author: Md. Abdullah
+Last Updated: 17/11/2021
 ----------------------*/
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;

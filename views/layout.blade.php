@@ -14,11 +14,11 @@
 	<script src="{{ asset('vendor/formbuilder/js/clipboard/clipboard.min.js') }}?b=ck24" defer></script>
 	<script src="{{ asset('vendor/formbuilder/js/moment.js') }}"></script>
 	<script src="{{ asset('vendor/formbuilder/js/footable/js/footable.min.js') }}" defer></script>
-	<script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+	<script src="{{ asset('vendor/formbuilder/js/script.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
 @endprepend
 
 @prepend(config('formbuilder.layout_css_stack', 'scripts'))
 	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/js/footable/css/footable.standalone.min.css') }}">
-	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/css/styles.css') }}{{ jazmy\FormBuilder\Helper::bustCache() }}">
+	<link rel="stylesheet" type="text/css" href="{{ asset('vendor/formbuilder/css/styles.css') }}{{ abd\FormBuilder\Helper::bustCache() }}">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 @endprepend

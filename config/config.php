@@ -1,9 +1,9 @@
 <?php
 /*--------------------
-https://github.com/jazmy/laravelformbuilder
+https://github.com/abd-abdullah/laravel-formbuilder
 Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
+Author: Md. Abdullah
+Last Updated: 17/11/2021
 ----------------------*/
 return [
     /**
@@ -30,12 +30,12 @@ return [
     /**
      * The class that will provide the roles we will display on form create or edit pages?
      */
-    'roles_provider' => jazmy\FormBuilder\Services\RolesProvider::class,
+    'roles_provider' => abd\FormBuilder\Services\RolesProvider::class,
 
     /**
      * Models used in form builder
      */
     'models' => [
-        'user' => \App\User::class,
+        'user' => \App\Models\User::class,
     ],
 ];

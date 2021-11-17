@@ -1,16 +1,16 @@
 <?php
 /*--------------------
-https://github.com/jazmy/laravelformbuilder
+https://github.com/abd/laravelformbuilder
 Licensed under the GNU General Public License v3.0
 Author: Jasmine Robinson (jazmy.com)
 Last Updated: 12/29/2018
 ----------------------*/
-namespace jazmy\FormBuilder\Controllers;
+namespace abd\FormBuilder\Controllers;
 
 use App\Http\Controllers\Controller;
-use jazmy\FormBuilder\Helper;
-use jazmy\FormBuilder\Models\Form;
-use jazmy\FormBuilder\Models\Submission;
+use abd\FormBuilder\Helper;
+use abd\FormBuilder\Models\Form;
+use abd\FormBuilder\Models\Submission;
 use Illuminate\Http\Request;
 
 class SubmissionController extends Controller

@@ -47,7 +47,7 @@
 
                                     <select name="visibility" id="visibility" class="form-control" required="required">
                                         <option value="">Select Form Visibility</option>
-                                        @foreach(jazmy\FormBuilder\Models\Form::$visibility_options as $option)
+                                        @foreach(abd\FormBuilder\Models\Form::$visibility_options as $option)
                                             <option value="{{ $option['id'] }}" @if($form->visibility == $option['id']) selected @endif>
                                                 {{ $option['name'] }}
                                             </option>
@@ -119,5 +119,5 @@
         
         window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
     </script>
-    <script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+    <script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
 @endpush

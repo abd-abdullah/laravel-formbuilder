@@ -89,5 +89,5 @@
     <script type="text/javascript">
         window._form_builder_content = {!! json_encode($form->form_builder_json) !!}
     </script>
-    <script src="{{ asset('vendor/formbuilder/js/preview-form.js') }}{{ jazmy\FormBuilder\Helper::bustCache() }}" defer></script>
+    <script src="{{ asset('vendor/formbuilder/js/preview-form.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
 @endpush

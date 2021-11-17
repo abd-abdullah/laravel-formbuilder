@@ -1,14 +1,14 @@
 <?php
 /*--------------------
-https://github.com/jazmy/laravelformbuilder
+https://github.com/abd-abdullah/laravel-formbuilder
 Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
+Author: Md. Abdullah
+Last Updated: 17/11/2021
 ----------------------*/
-namespace jazmy\FormBuilder\Middlewares;
+namespace abd\FormBuilder\Middlewares;
 
 use Closure;
-use jazmy\FormBuilder\Models\Form;
+use abd\FormBuilder\Models\Form;
 
 class PublicFormAccess
 {

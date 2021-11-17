@@ -1,19 +1,19 @@
 <?php
 /*--------------------
-https://github.com/jazmy/laravelformbuilder
+https://github.com/abd-abdullah/laravel-formbuilder
 Licensed under the GNU General Public License v3.0
-Author: Jasmine Robinson (jazmy.com)
-Last Updated: 12/29/2018
+Author: Md. Abdullah
+Last Updated: 17/11/2021
 ----------------------*/
-namespace jazmy\FormBuilder\Controllers;
+namespace abd\FormBuilder\Controllers;
 
 use App\Http\Controllers\Controller;
-use jazmy\FormBuilder\Events\Form\FormCreated;
-use jazmy\FormBuilder\Events\Form\FormDeleted;
-use jazmy\FormBuilder\Events\Form\FormUpdated;
-use jazmy\FormBuilder\Helper;
-use jazmy\FormBuilder\Models\Form;
-use jazmy\FormBuilder\Requests\SaveFormRequest;
+use abd\FormBuilder\Events\Form\FormCreated;
+use abd\FormBuilder\Events\Form\FormDeleted;
+use abd\FormBuilder\Events\Form\FormUpdated;
+use abd\FormBuilder\Helper;
+use abd\FormBuilder\Models\Form;
+use abd\FormBuilder\Requests\SaveFormRequest;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Throwable;
@@ -64,7 +64,7 @@ class FormController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  jazmy\FormBuilder\Requests\SaveFormRequest $request
+     * @param  abd\FormBuilder\Requests\SaveFormRequest $request
      * @return \Illuminate\Http\Response
      */
     public function store(SaveFormRequest $request)
@@ -144,7 +144,7 @@ class FormController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  jazmy\FormBuilder\Requests\SaveFormRequest $request
+     * @param  abd\FormBuilder\Requests\SaveFormRequest $request
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
