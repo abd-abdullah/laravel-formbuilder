@@ -11,7 +11,7 @@
     },
     "autoload": {
         "psr-4": {
-            "jazmy\\FormBuilder\\": "src/"
+            "abd\\FormBuilder\\": "src/"
         }
     },
     "extra": {
