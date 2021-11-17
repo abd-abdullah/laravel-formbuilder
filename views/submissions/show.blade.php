@@ -7,10 +7,10 @@
             <div class="card rounded-0">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <h4>Viewing Submission #{{ $submission->id }} for form <strong>{{ $submission->form->name }}</strong></h4>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <a href="{{ route('formbuilder::forms.submissions.index', $submission->form->id) }}" class="btn btn-primary float-md-right btn-sm" title="Back To Submissions">
                                 <i class="fa fa-arrow-left"></i>
                             </a>

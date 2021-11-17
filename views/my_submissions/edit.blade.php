@@ -7,10 +7,10 @@
             <div class="card rounded-0">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-lg-6">
+                        <div class="col-lg-8">
                             <h3>{{ $pageTitle }}</h3>
                         </div>
-                        <div class="col-lg-6">
+                        <div class="col-lg-4">
                             <a href="{{ route('formbuilder::my-submissions.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Submissions">
                                 <i class="fa fa-arrow-left"></i>
                             </a>

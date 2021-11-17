@@ -7,10 +7,10 @@
             <div class="card">
                 <div class="card-header">
                     <div class="row">
-                        <div class="col-lg-4">
+                        <div class="col-lg-6">
                             <h2>{{ $pageTitle ?? '' }}</h2>
                         </div>
-                        <div class="col-lg-8">
+                        <div class="col-lg-6">
                             <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-primary btn-sm pull-right">
                                 <i class="fa fa-arrow-left"></i> Back To My Forms
                             </a>
