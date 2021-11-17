@@ -1,5 +1,5 @@
 {
-    "name": "abd/laravel-form-builder",
+    "name": "abd/laravel-formbuilder",
     "description": "Laravel Package for Creating a Drag-and-Drop Form Builder Using JQuery Form Builder",
     "authors": [
         {
@@ -17,7 +17,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "abd\\LaravelFormBuilder\\FormBuilderServiceProvider"
+                "abd\\FormBuilder\\FormBuilderServiceProvider"
             ]
         }
     }
