@@ -40,7 +40,7 @@ This custom package takes a couple steps to install but I will try to make it as
 Edit your composer.json file manually or simply type
 
 ```bash
-composer require abd/laravel-form-builder
+composer require abd/laravel-formbuilder
 ```
 
 ### Step Two:
@@ -71,12 +71,12 @@ Update your blade template file. In the default laravel install the template fil
 You need to add tags for the new styles and scripts
 At the top of the blade file, just above the closing head tag:
 ```php
-@stack('styles')
+@stack('css')
 ```
 
 At the bottom of the blade file, just above the closing the closing body tag:
 ```php
-@stack('scripts')
+@stack('script')
 ```
 *Note: If you ever need to change which files are called using these @stack values, you can update the config file.*
 
@@ -145,8 +145,6 @@ $my_submissions = Submission::getForUser($user); // returns a paginated resultse
 The package dispatches a number of events when records are created or updated so that you can listen to these events and perform custom tasks in your application's logic
 
 ## Precautions
-1. Make sure you have a table name users with a colum id {bigSignedInteger} in your database.
-2. Once you have submission(s) on a form , dont attempt to edit the form again bacause it will break the display of earlier submissions 3. 
+1. Make sure you have a table name users with a column id {bigSignedInteger} in your database.
+2. Once you have submission(s) on a form , don't attempt to edit the form again because it will break the display of earlier submissions 3. 
 
-## Acknowledgments
-Special Thanks to Farayola Oladele, one of the best Laravel programmers on Fiverr: https://www.fiverr.com/harristech He taught me so much and I highly recommend him for assistance on your Laravel projects.
