@@ -9,7 +9,7 @@ return [
     /**
      * Url path to use for this package routes
      */
-    'url_path' => '/form-builder',
+    'url_path' => '/admin/form-builder',
 
     /**
      * Template layout file. This is the path to the layout file your application uses

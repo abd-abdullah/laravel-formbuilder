@@ -51,8 +51,29 @@ class RenderFormController extends Controller
     public function submit(Request $request, $identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
+        $input = $request->except('_token');
+
+        $rules = [];
+
+
+        $formField = json_decode($form->form_builder_json);
+
+        foreach ($formField as $index => $field){
+            $rule = 'bail';
+            $rule .= (isset($field->required) ? '|required' : '');
+            $rule .= (isset($field->subtype) && $field->subtype == 'email') ? '|email' : '';
+            $rule .= ($field->type == 'text') ? '|min:0' : '';
+            $rule .= (isset($field->maxlength) && is_int($field->maxlength)) ? '|max:'.$field->maxlength : '';
+            $rule .= (isset($field->minlength) && is_int($field->minlength)) ? '|min:'.$field->minlength : '';
+
+            $rules[$field->name] = $rule;
+
+        }
+
+        $request->validate($rules);
 
         DB::beginTransaction();
+
 
         try {
             $input = $request->except('_token');
@@ -76,8 +97,8 @@ class RenderFormController extends Controller
             DB::commit();
 
             return redirect()
-                    ->route('formbuilder::form.feedback', $identifier)
-                    ->with('success', 'Form successfully submitted.');
+                ->route('formbuilder::form.feedback', $identifier)
+                ->with('success', 'Form successfully submitted.');
         } catch (Throwable $e) {
             info($e);
 
