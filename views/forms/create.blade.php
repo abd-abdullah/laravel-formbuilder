@@ -1,110 +1,201 @@
- @extends('formbuilder::layout')
+@extends('formbuilder::layout')
 
 @section('content')
-<div class="container">
-    <div class="row justify-content-center">
-        <div class="col-md-12">
-            <div class="card">
-                <div class="card-header">
-                    <div class="row">
-                        <div class="col-lg-8">
-                            <h2>{{ $pageTitle ?? '' }}</h2>
-                        </div>
-                        <div class="col-lg-4">
-                            <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-sm btn-primary pull-right">
-                                <i class="fa fa-arrow-left"></i> Back To My Form
-                            </a>
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <h2>{{ $pageTitle ?? '' }}</h2>
+                            </div>
+                            <div class="col-lg-4">
+                                <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-sm btn-primary pull-right">
+                                    <i class="fa fa-arrow-left"></i> Back To My Form
+                                </a>
+                            </div>
                         </div>
                     </div>
-                </div>
 
-                <form action="{{ route('formbuilder::forms.store') }}" method="POST" id="createFormForm">
-                    @csrf
+                    <form action="{{ route('formbuilder::forms.store') }}" method="POST" id="createFormForm">
+                        @csrf
 
-                    <div class="card-body">
-                        <div class="row">
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="name" class="col-form-label">Form Name</label>
+                        <div class="card-body">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="name" class="col-form-label">Form Name</label>
 
-                                    <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Enter Form Name">
+                                        <input id="name" type="text" class="form-control{{ $errors->has('name') ? ' is-invalid' : '' }}" name="name" value="{{ old('name') }}" required autofocus placeholder="Enter Form Name">
 
-                                    @if ($errors->has('name'))
-                                        <span class="invalid-feedback" role="alert">
+                                        @if ($errors->has('name'))
+                                            <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('name') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4">
-                                <div class="form-group">
-                                    <label for="visibility" class="col-form-label">Form Visibility</label>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="visibility" class="col-form-label">Form Visibility</label>
 
-                                    <select name="visibility" id="visibility" class="form-control" required="required">
-                                        <option value="">Select Form Visibility</option>
-                                        @foreach(abd\FormBuilder\Models\Form::$visibility_options as $option)
-                                            <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
-                                        @endforeach
-                                    </select>
+                                        <select name="visibility" id="visibility" class="form-control" required="required">
+                                            <option value="">Select Form Visibility</option>
+                                            @foreach(abd\FormBuilder\Models\Form::$visibility_options as $option)
+                                                <option value="{{ $option['id'] }}">{{ $option['name'] }}</option>
+                                            @endforeach
+                                        </select>
 
-                                    @if ($errors->has('visibility'))
-                                        <span class="invalid-feedback" role="alert">
+                                        @if ($errors->has('visibility'))
+                                            <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('visibility') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
                                 </div>
-                            </div>
-                            <div class="col-md-4" style="display: none;" id="allows_edit_DIV">
-                                <div class="form-group">
-                                    <label for="allows_edit" class="col-form-label">
-                                        Allow Submission Edit
-                                    </label>
+                                <div class="col-md-4" style="display: none;" id="allows_edit_DIV">
+                                    <div class="form-group">
+                                        <label for="allows_edit" class="col-form-label">
+                                            Allow Submission Edit
+                                        </label>
 
-                                    <select name="allows_edit" id="allows_edit" class="form-control" required="required">
-                                        <option value="0">NO (submissions are final)</option>
-                                        <option value="1">YES (allow users to edit their submissions)</option>
-                                    </select>
+                                        <select name="allows_edit" id="allows_edit" class="form-control" required="required">
+                                            <option value="0">NO (submissions are final)</option>
+                                            <option value="1">YES (allow users to edit their submissions)</option>
+                                        </select>
 
-                                    @if ($errors->has('allows_edit'))
-                                        <span class="invalid-feedback" role="alert">
+                                        @if ($errors->has('allows_edit'))
+                                            <span class="invalid-feedback" role="alert">
                                             <strong>{{ $errors->first('allows_edit') }}</strong>
                                         </span>
-                                    @endif
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="multiple_submit" class="col-form-label">Enable Multiple Submit</label>
+
+                                        <select name="multiple_submit" id="multiple_submit" class="form-control" required="required">
+                                            <option value="no">NO</option>
+                                            <option value="yes">YES</option>
+                                        </select>
+
+                                        @if ($errors->has('multiple_submit'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="payment_enable" class="col-form-label">Payment Enable</label>
+
+                                        <select name="payment_enable" id="payment_enable" class="form-control" required="required">
+                                            <option value="no">NO</option>
+                                            <option value="yes">YES</option>
+                                        </select>
+
+                                        @if ($errors->has('multiple_submit'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="form-group">
+                                        <label for="payment_enable" class="col-form-label">Payment Details</label>
+
+                                        <select name="payment_enable" id="payment_enable" class="form-control" required="required">
+                                            <option value="no">NO</option>
+                                            <option value="yes">YES</option>
+                                        </select>
+
+                                        @if ($errors->has('multiple_submit'))
+                                            <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
+                                        </span>
+                                        @endif
+                                    </div>
+                                </div>
+                                <div class="col-md-12 d-none" id="paymentDetails">
+                                    <fieldset>
+                                        <legend class="border-bottom">Payment Details</legend>
+                                        <div class="row m-0">
+                                            <table class="mb-3 w-100">
+                                                <tr class="text-center">
+                                                    <td class="text-bold">Option</td>
+                                                    <td class="text-bold">Total Amount</td>
+                                                </tr>
+                                                <tr class="childTr">
+                                                    <td><input type="text" class="form-control" name="payment_option_name[]" value="Default" required placeholder="Enter Option Name"></td>
+                                                    <td><input type="number" class="form-control" name="payment_option_value[]" value="0" min="0" required placeholder="Enter Total Amount"></td>
+                                                </tr>
+                                                <tr>
+                                                    <td colspan="2">
+                                                        <button id="cloneDetailsRow" type="button" class="btn btn-sm btn-teal mt-2 pull-right">Add +</button>
+                                                        <button id="deleteDetailsRow" type="button" class="btn btn-danger btn-sm mr-1 mt-2 pull-right">Remove</button>
+                                                    </td>
+                                                </tr>
+                                            </table>
+                                        </div>
+                                    </fieldset>
+                                </div>
+
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="alert alert-info" role="alert">
+                                        <i class="fa fa-info-circle"></i>
+                                        Click on or drag and drop components onto the main panel to build your form content.
+                                    </div>
+
+                                    <div id="fb-editor" class="fb-editor"></div>
                                 </div>
                             </div>
                         </div>
+                    </form>
 
-                        <div class="row">
-                            <div class="col-12">
-                                <div class="alert alert-info" role="alert">
-                                    <i class="fa fa-info-circle"></i>
-                                    Click on or drag and drop components onto the main panel to build your form content.
-                                </div>
-
-                                <div id="fb-editor" class="fb-editor"></div>
-                            </div>
-                        </div>
+                    <div class="card-footer" id="fb-editor-footer" style="display: none;">
+                        <button type="button" class="btn btn-primary fb-clear-btn">
+                            <i class="fa fa-remove"></i> Clear Form
+                        </button>
+                        <button type="button" class="btn btn-primary fb-save-btn">
+                            <i class="fa fa-save"></i> Submit &amp; Save Form
+                        </button>
                     </div>
-                </form>
-
-                <div class="card-footer" id="fb-editor-footer" style="display: none;">
-                    <button type="button" class="btn btn-primary fb-clear-btn">
-                        <i class="fa fa-remove"></i> Clear Form
-                    </button>
-                    <button type="button" class="btn btn-primary fb-save-btn">
-                        <i class="fa fa-save"></i> Submit &amp; Save Form
-                    </button>
                 </div>
             </div>
         </div>
     </div>
-</div>
 @endsection
 
 @push(config('formbuilder.layout_js_stack', 'scripts'))
-    <script type="text/javascript">
-        window.FormBuilder = window.FormBuilder || {}
-        window.FormBuilder.form_roles = @json($form_roles);
-    </script>
-    <script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
+<script type="text/javascript">
+    window.FormBuilder = window.FormBuilder || {}
+    window.FormBuilder.form_roles = @json($form_roles);
+    $(document).on('click', '#cloneDetailsRow',  function (){
+        let tr = $('.childTr').first().clone().find('input').val('').end();
+        $('.childTr').first().after(tr);
+    });
+
+    $(document).on('click', '#deleteDetailsRow',  function (){
+        if( $('.childTr').length > 1)
+            $('.childTr').last().remove();
+    });
+
+    $(document).on('change', '#payment_enable',  function (){
+        if($(this).val() == 'yes'){
+            $('#paymentDetails').removeClass('d-none');
+        }
+        else{
+            $('#paymentDetails').addClass('d-none');
+        }
+    });
+</script>
+<script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
+
 @endpush

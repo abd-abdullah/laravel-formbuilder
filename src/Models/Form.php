@@ -14,6 +14,8 @@ class Form extends Model
 {
     const FORM_PUBLIC = "PUBLIC";
     const FORM_PRIVATE = "PRIVATE";
+    const FORM_PAYMENT_ENABLE = false;
+    const FORM_MULTI_SUBMIT = false;
 
     /**
      * The form visibility constants as an dropdown array
@@ -41,6 +43,8 @@ class Form extends Model
      */
     protected $casts = [
         'allows_edit' => 'boolean',
+        'multiple_submit' => 'boolean',
+        'payment_enable' => 'boolean',
     ];
 
     /**
@@ -105,6 +109,26 @@ class Form extends Model
     }
 
     /**
+     * Check if the form has multiple submit enable
+     *
+     * @return boolean
+     */
+    public function isMultiSubmit() : bool
+    {
+        return $this->multiple_submit === self::FORM_MULTI_SUBMIT;
+    }
+
+    /**
+     * Check if the form has payment enable
+     *
+     * @return boolean
+     */
+    public function isPaymentEnable() : bool
+    {
+        return $this->payment_enable === self::FORM_PAYMENT_ENABLE;
+    }
+
+    /**
      * Check if the form has private visibility
      *
      * @return boolean
@@ -133,9 +157,9 @@ class Form extends Model
     public static function getForUser($user)
     {
         return static::where('user_id', $user->id)
-                    ->withCount('submissions')
-                    ->latest()
-                    ->paginate(100);
+            ->withCount('submissions')
+            ->latest()
+            ->paginate(100);
     }
 
     /**
@@ -146,15 +170,15 @@ class Form extends Model
     public function getEntriesHeader() : Collection
     {
         return collect($this->form_builder_array)
-                    ->filter(function ($entry) {
-                        return ! empty($entry['name']);
-                    })
-                    ->map(function ($entry) {
-                        return [
-                            'name' => $entry['name'],
-                            'label' => $entry['label'] ?? null,
-                            'type' => $entry['type'] ?? null,
-                        ];
-                    });
+            ->filter(function ($entry) {
+                return ! empty($entry['name']);
+            })
+            ->map(function ($entry) {
+                return [
+                    'name' => $entry['name'],
+                    'label' => $entry['label'] ?? null,
+                    'type' => $entry['type'] ?? null,
+                ];
+            });
     }
 }
