@@ -8,7 +8,7 @@
                 <div class="card-header">
                     <div class="row">
                         <div class="col-lg-10">
-                            <h5>{{ $pageTitle }} ({{ $submissions->count() }})</h5>
+                            <h4>{{ $pageTitle }} ({{ $submissions->count() }})</h4>
                         </div>
                         <div class="col-lg-2">
                             <a href="{{ route('formbuilder::forms.index') }}" class="btn btn-primary float-md-right btn-sm" title="Back To My Forms">

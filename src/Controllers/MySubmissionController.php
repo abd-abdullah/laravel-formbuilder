@@ -54,8 +54,8 @@ class MySubmissionController extends Controller
     {
         $user = auth()->user();
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])
-            ->with('form')
-            ->firstOrFail();
+                            ->with('form')
+                            ->firstOrFail();
 
         $form_headers = $submission->form->getEntriesHeader();
 
@@ -74,8 +74,8 @@ class MySubmissionController extends Controller
     {
         $user = auth()->user();
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])
-            ->with('form')
-            ->firstOrFail();
+                            ->with('form')
+                            ->firstOrFail();
 
         // load up my current submissions into the form json data so that the
         // form is pre-filled with the previous submission we are trying to edit.
@@ -117,8 +117,8 @@ class MySubmissionController extends Controller
             DB::commit();
 
             return redirect()
-                ->route('formbuilder::my-submissions.index')
-                ->with('success', 'Submission updated.');
+                        ->route('formbuilder::my-submissions.index')
+                        ->with('success', 'Submission updated.');
         } catch (Throwable $e) {
             info($e);
 
@@ -141,7 +141,7 @@ class MySubmissionController extends Controller
         $submission->delete();
 
         return redirect()
-            ->route('formbuilder::my-submissions.index')
-            ->with('success', 'Submission deleted!');
+                    ->route('formbuilder::my-submissions.index')
+                    ->with('success', 'Submission deleted!');
     }
 }
