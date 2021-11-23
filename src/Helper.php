@@ -16,18 +16,9 @@ class Helper
      *
      * @return array
      */
-    public static function getConfiguredRoles() : array
+    public static function getConfiguredRoles()
     {
-        if (empty(config('formbuilder.roles_provider'))) return [];
-
-        try {
-            $provider = config('formbuilder.roles_provider');
-            return  (new $provider)();
-        } catch (Throwable $e) {
-            info($e);
-
-            return [];
-        }
+        return (auth()->user()->user_type == config('formbuilder.admin_type')) ? 1 : 0 ;
     }
 
     /**

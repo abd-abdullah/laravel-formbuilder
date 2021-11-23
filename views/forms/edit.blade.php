@@ -82,6 +82,72 @@
                                     @endif
                                 </div>
                             </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="multiple_submit" class="col-form-label">Enable Multiple Submit</label>
+
+                                    <select name="multiple_submit" id="multiple_submit" class="form-control" required="required">
+                                        <option {{($form->multiple_submit == 0) ? 'selected' : ''}} value="no">NO</option>
+                                        <option {{($form->multiple_submit == 1) ? 'selected' : ''}} value="yes">YES</option>
+                                    </select>
+
+                                    @if ($errors->has('multiple_submit'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="form-group">
+                                    <label for="payment_enable" class="col-form-label">Payment Enable</label>
+
+                                    <select name="payment_enable" id="payment_enable" class="form-control" required="required">
+                                        <option {{($form->payment_enable == 0) ? 'selected' : ''}} value="no">NO</option>
+                                        <option {{($form->payment_enable == 1) ? 'selected' : ''}} value="yes">YES</option>
+                                    </select>
+
+                                    @if ($errors->has('multiple_submit'))
+                                        <span class="invalid-feedback" role="alert">
+                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
+                                        </span>
+                                    @endif
+                                </div>
+                            </div>
+                            @php
+                                $paymentDetails = json_decode($form->payment_details);
+                                $paymentDetails = $paymentDetails ? $paymentDetails : [];
+                            @endphp
+                            <div class="col-md-12 {{(count($paymentDetails) > 0 ? '' : 'd-none')}}" id="paymentDetails">
+                                <fieldset>
+                                    <legend class="border-bottom">Payment Details</legend>
+                                    <div class="row m-0">
+                                        <table class="mb-3 w-100">
+                                            <tr class="text-center">
+                                                <td class="text-bold">Option</td>
+                                                <td class="text-bold">Total Amount</td>
+                                            </tr>
+                                            @forelse($paymentDetails as $index => $details)
+                                                <tr class="childTr">
+                                                    <td><input type="text" class="form-control" name="payment_option_name[]" value="{{$details->payment_option_name}}" required placeholder="Enter Option Name"></td>
+                                                    <td><input type="number" class="form-control" name="payment_option_value[]" value="{{$details->payment_option_value}}" min="1" required placeholder="Enter Total Amount"></td>
+                                                </tr>
+                                            @empty
+                                                <tr>
+                                                    <td><input type="text" class="form-control" name="payment_option_name[]" value="Default" required placeholder="Enter Option Name"></td>
+                                                    <td><input type="number" class="form-control" name="payment_option_value[]" value="1" min="1" required placeholder="Enter Total Amount"></td>
+                                                </tr>
+                                            @endforelse
+                                            <tr>
+                                                <td colspan="2">
+                                                    <button id="cloneDetailsRow" type="button" class="btn btn-sm btn-teal mt-2 pull-right">Add +</button>
+                                                    <button id="deleteDetailsRow" type="button" class="btn btn-danger btn-sm mr-1 mt-2 pull-right">Remove</button>
+                                                </td>
+                                            </tr>
+                                        </table>
+                                    </div>
+                                </fieldset>
+                            </div>
                         </div>
 
                         <div class="row">

@@ -16,8 +16,12 @@ class AddPaymentsColumnsToFormsTable extends Migration
         Schema::table('forms', function (Blueprint $table) {
             $table->tinyInteger('multiple_submit')->after('custom_submit_url')->default(0);
             $table->tinyInteger('payment_enable')->after('multiple_submit')->default(0);
-            $table->string('paymentable_class_path')->after('payment_enable')->nullable();
-            $table->text('payment_details')->after('paymentable_class_path')->nullable();
+            $table->string('payment_route')->after('payment_enable')->nullable();
+            $table->text('payment_details')->after('payment_route')->nullable();
+        });
+
+        Schema::table('form_submissions', function (Blueprint $table) {
+            $table->text('payment_details')->after('content')->nullable();
         });
     }
 
@@ -31,7 +35,11 @@ class AddPaymentsColumnsToFormsTable extends Migration
         Schema::table('forms', function (Blueprint $table) {
             $table->dropColumn('multiple_submit');
             $table->dropColumn('payment_enable');
-            $table->dropColumn('paymentable_class_path');
+            $table->dropColumn('payment_route');
+            $table->dropColumn('payment_details');
+        });
+
+        Schema::table('form_submissions', function (Blueprint $table) {
             $table->dropColumn('payment_details');
         });
     }

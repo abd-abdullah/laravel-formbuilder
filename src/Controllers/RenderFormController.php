@@ -35,10 +35,11 @@ class RenderFormController extends Controller
     public function render($identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
+        $submission = auth()->user()->submissions->where('form_id', $form->id)->first();
 
         $pageTitle = "{$form->name}";
 
-        return view('formbuilder::render.index', compact('form', 'pageTitle'));
+        return view('formbuilder::render.index', compact('form', 'submission',  'pageTitle'));
     }
 
     /**
@@ -56,7 +57,14 @@ class RenderFormController extends Controller
         $rules = [];
 
 
-       $formField = json_decode($form->form_builder_json);
+        if($form->payment_enable){
+            $paymentDetails = json_decode($form->payment_details);
+            if($request->has('payment_option_name')){
+                $rules['payment_option_name.*'] = 'required|min:2';
+            }
+        }
+
+        $formField = json_decode($form->form_builder_json);
 
         foreach ($formField as $index => $field){
             $rule = 'bail';
@@ -89,12 +97,33 @@ class RenderFormController extends Controller
 
             $user_id = auth()->user()->id ?? null;
 
-            $form->submissions()->create([
+            $data = [
                 'user_id' => $user_id,
                 'content' => $input,
-            ]);
+            ];
+
+            if($form->payment_enable){
+                $paymentDetails = collect(json_decode($form->payment_details));
+                if($request->has('payment_option_name')){
+                    foreach($request->payment_option_name as $payment_option){
+                        $amount = $paymentDetails->where('payment_option_name', $payment_option)->first()->payment_option_value;
+                        $payment_details[] = [
+                            'payment_option_name' => $payment_option,
+                            'payment_option_amount' => $amount,
+                        ];
+                    }
+                }
+            }
+
+            $data['payment_details'] = json_encode($payment_details);
+
+            $submission = $form->submissions()->create($data);
 
             DB::commit();
+
+            if($form->payment_enable) {
+                return redirect()->away($form->payment_route.'/'.$submission->id);
+            }
 
             return redirect()
                     ->route('formbuilder::form.feedback', $identifier)

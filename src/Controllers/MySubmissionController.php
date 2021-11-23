@@ -7,6 +7,7 @@ Last Updated: 17/11/2021
 ----------------------*/
 namespace abd\FormBuilder\Controllers;
 
+use abd\FormBuilder\Models\Form;
 use App\Http\Controllers\Controller;
 use abd\FormBuilder\Models\Submission;
 use Illuminate\Http\Request;
@@ -81,9 +82,11 @@ class MySubmissionController extends Controller
         // form is pre-filled with the previous submission we are trying to edit.
         $submission->loadSubmissionIntoFormJson();
 
+        $form = Form::where('id', $submission->form_id)->first();
+
         $pageTitle = "Edit My Submission for {$submission->form->name}";
 
-        return view('formbuilder::my_submissions.edit', compact('submission', 'pageTitle'));
+        return view('formbuilder::my_submissions.edit', compact('submission', 'pageTitle', 'form'));
     }
 
     /**
@@ -98,10 +101,37 @@ class MySubmissionController extends Controller
         $user = auth()->user();
         $submission = Submission::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
 
+        $form = Form::where('id', $submission->form_id)->firstOrFail();
+        $input = $request->except(['_token', '_method']);
+
+        $rules = [];
+
+        if($form->payment_enable){
+            $paymentDetails = json_decode($form->payment_details);
+            if($request->has('payment_option_name')){
+                $rules['payment_option_name.*'] = 'required|min:2';
+            }
+        }
+
+        $formField = json_decode($form->form_builder_json);
+
+        foreach ($formField as $index => $field){
+            $rule = 'bail';
+            $rule .= (isset($field->required) ? '|required' : '');
+            $rule .= (isset($field->subtype) && $field->subtype == 'email') ? '|email' : '';
+            $rule .= ($field->type == 'text') ? '|min:0' : '';
+            $rule .= (isset($field->maxlength) && is_int($field->maxlength)) ? '|max:'.$field->maxlength : '';
+            $rule .= (isset($field->minlength) && is_int($field->minlength)) ? '|min:'.$field->minlength : '';
+
+            $rules[$field->name] = $rule;
+
+        }
+
+        $request->validate($rules);
+
         DB::beginTransaction();
 
         try {
-            $input = $request->except(['_token', '_method']);
 
             // check if files were uploaded and process them
             $uploadedFiles = $request->allFiles();
@@ -112,10 +142,28 @@ class MySubmissionController extends Controller
                 }
             }
 
-            $submission->update(['content' => $input]);
+            $data = [
+                'content' => $input,
+            ];
+
+            if($form->payment_enable){
+                $paymentDetails = collect(json_decode($form->payment_details));
+                if($request->has('payment_option_name')){
+                    foreach($request->payment_option_name as $payment_option){
+                        $amount = $paymentDetails->where('payment_option_name', $payment_option)->first()->payment_option_value;
+                        $payment_details[] = [
+                            'payment_option_name' => $payment_option,
+                            'payment_option_amount' => $amount,
+                        ];
+                    }
+                }
+            }
+
+            $data['payment_details'] = json_encode($payment_details);
+
+            $submission->update($data);
 
             DB::commit();
-
             return redirect()
                         ->route('formbuilder::my-submissions.index')
                         ->with('success', 'Submission updated.');

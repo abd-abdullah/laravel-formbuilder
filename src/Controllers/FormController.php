@@ -27,7 +27,7 @@ class FormController extends Controller
      */
     public function __construct()
     {
-        $this->middleware('auth');
+        $this->middleware(['auth', 'isAdmin']);
     }
 
     /**
@@ -75,6 +75,21 @@ class FormController extends Controller
 
         DB::beginTransaction();
 
+        $input['payment_enable'] = ($request->payment_enable == 'yes') ? 1 : 0;
+        $input['multiple_submit'] = ($request->multiple_submit == 'yes') ? 1 : 0;
+
+        $payment_details = [];
+        if($input['payment_enable']) {
+            foreach($request->payment_option_name as $index => $paymentOption){
+                $payment_details[] = [
+                    'payment_option_name' => $paymentOption,
+                    'payment_option_value' => $request->payment_option_value[$index],
+                ];
+            }
+        }
+
+        $input['payment_route'] = config('formbuilder.payment_url');
+        $input['payment_details'] = json_encode($payment_details);
         // generate a random identifier
         $input['identifier'] = $user->id.'-'.Helper::randomString(20);
         $created = Form::create($input);
@@ -154,6 +169,21 @@ class FormController extends Controller
         $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
 
         $input = $request->except('_token');
+        $input['payment_enable'] = ($request->payment_enable == 'yes') ? 1 : 0;
+        $input['multiple_submit'] = ($request->multiple_submit == 'yes') ? 1 : 0;
+
+        $payment_details = [];
+        if($input['payment_enable']) {
+            foreach($request->payment_option_name as $index => $paymentOption){
+                $payment_details[] = [
+                    'payment_option_name' => $paymentOption,
+                    'payment_option_value' => $request->payment_option_value[$index],
+                ];
+            }
+        }
+
+        $input['payment_route'] = config('formbuilder.payment_url');
+        $input['payment_details'] = json_encode($payment_details);
 
         if ($form->update($input)) {
             // dispatch the event

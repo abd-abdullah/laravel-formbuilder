@@ -30,7 +30,7 @@ return [
     /**
      * The class that will provide the roles we will display on form create or edit pages?
      */
-    'roles_provider' => abd\FormBuilder\Services\RolesProvider::class,
+    'admin_type' => env('ADMIN_TYPE', 1),
 
     /**
      * Models used in form builder

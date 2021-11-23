@@ -37,6 +37,7 @@ class Submission extends Model
      */
     protected $casts = [
         'content' => 'array',
+        'payemnt_details' => 'array',
     ];
 
     /**

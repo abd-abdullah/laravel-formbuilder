@@ -8,6 +8,7 @@ Last Updated: 17/11/2021
 namespace abd\FormBuilder;
 
 use abd\FormBuilder\Middlewares\FormAllowSubmissionEdit;
+use abd\FormBuilder\Middlewares\IsAdmin;
 use abd\FormBuilder\Middlewares\PublicFormAccess;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\ServiceProvider;
@@ -40,6 +41,7 @@ class FormBuilderServiceProvider extends ServiceProvider
 	    // register the middleware
 	    Route::aliasMiddleware('public-form-access', PublicFormAccess::class);
 	    Route::aliasMiddleware('submisson-editable', FormAllowSubmissionEdit::class);
+        Route::aliasMiddleware('isAdmin', IsAdmin::class);
 
 	    // load migrations
 	    $this->loadMigrationsFrom( __DIR__.'/../migrations' );

@@ -104,22 +104,6 @@
                                         @endif
                                     </div>
                                 </div>
-                                <div class="col-md-4">
-                                    <div class="form-group">
-                                        <label for="payment_enable" class="col-form-label">Payment Details</label>
-
-                                        <select name="payment_enable" id="payment_enable" class="form-control" required="required">
-                                            <option value="no">NO</option>
-                                            <option value="yes">YES</option>
-                                        </select>
-
-                                        @if ($errors->has('multiple_submit'))
-                                            <span class="invalid-feedback" role="alert">
-                                            <strong>{{ $errors->first('multiple_submit') }}</strong>
-                                        </span>
-                                        @endif
-                                    </div>
-                                </div>
                                 <div class="col-md-12 d-none" id="paymentDetails">
                                     <fieldset>
                                         <legend class="border-bottom">Payment Details</legend>
@@ -131,7 +115,7 @@
                                                 </tr>
                                                 <tr class="childTr">
                                                     <td><input type="text" class="form-control" name="payment_option_name[]" value="Default" required placeholder="Enter Option Name"></td>
-                                                    <td><input type="number" class="form-control" name="payment_option_value[]" value="0" min="0" required placeholder="Enter Total Amount"></td>
+                                                    <td><input type="number" class="form-control" name="payment_option_value[]" value="1" min="1" required placeholder="Enter Total Amount"></td>
                                                 </tr>
                                                 <tr>
                                                     <td colspan="2">
@@ -177,24 +161,6 @@
 <script type="text/javascript">
     window.FormBuilder = window.FormBuilder || {}
     window.FormBuilder.form_roles = @json($form_roles);
-    $(document).on('click', '#cloneDetailsRow',  function (){
-        let tr = $('.childTr').first().clone().find('input').val('').end();
-        $('.childTr').first().after(tr);
-    });
-
-    $(document).on('click', '#deleteDetailsRow',  function (){
-        if( $('.childTr').length > 1)
-            $('.childTr').last().remove();
-    });
-
-    $(document).on('change', '#payment_enable',  function (){
-        if($(this).val() == 'yes'){
-            $('#paymentDetails').removeClass('d-none');
-        }
-        else{
-            $('#paymentDetails').addClass('d-none');
-        }
-    });
 </script>
 <script src="{{ asset('vendor/formbuilder/js/create-form.js') }}{{ abd\FormBuilder\Helper::bustCache() }}" defer></script>
 

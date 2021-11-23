@@ -30,11 +30,31 @@ class SaveFormRequest extends FormRequest
      */
     public function rules()
     {
-        return [
+        $rules = [
             'name' => 'required|max:100',
             'visibility' => ['required', Rule::in([Form::FORM_PUBLIC, Form::FORM_PRIVATE])],
             'allows_edit' => 'required|boolean',
             'form_builder_json' => 'required|json',
+        ];
+
+        if($this->request->get('payment_enable') === 'yes'){
+            $rules['payment_option_name.*'] = 'required|min:3';
+            $rules['payment_option_value.*'] = 'required|min:1';
+        }
+
+        return $rules;
+    }
+
+    /**
+     * Get the error messages for the defined validation rules.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'payment_option_name.*.required' => 'Payment option name is required',
+            'payment_option_value.*.required' => 'Payment option value is required'
         ];
     }
 }
