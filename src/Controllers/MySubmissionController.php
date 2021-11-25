@@ -131,7 +131,7 @@ class MySubmissionController extends Controller
             foreach ($uploadedFiles as $key => $file) {
                 // store the file and set it's path to the value of the key holding it
                 if ($file->isValid()) {
-                    $input[$key] = $file->store(confg('file_path').'/form_files');
+                    $input[$key] = $file->store(config('formbuilder.file_path').'/form_files');
                 }
             }
 
