@@ -35,7 +35,14 @@ class RenderFormController extends Controller
     public function render($identifier)
     {
         $form = Form::where('identifier', $identifier)->firstOrFail();
-        $submission = auth()->user()->submissions->where('form_id', $form->id)->first();
+
+        if($form->visibility == 'PRIVATE'){
+            $submission = auth()->user()->submissions->where('form_id', $form->id)->first();
+        }
+        else{
+            $submission = NULL;
+        }
+
 
         $pageTitle = "{$form->name}";
 
@@ -113,9 +120,10 @@ class RenderFormController extends Controller
                         ];
                     }
                 }
+
+                $data['payment_details'] = json_encode($payment_details);
             }
 
-            $data['payment_details'] = json_encode($payment_details);
 
             $submission = $form->submissions()->create($data);
 
