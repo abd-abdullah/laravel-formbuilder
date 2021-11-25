@@ -106,13 +106,6 @@ class MySubmissionController extends Controller
 
         $rules = [];
 
-        if($form->payment_enable){
-            $paymentDetails = json_decode($form->payment_details);
-            if($request->has('payment_option_name')){
-                $rules['payment_option_name.*'] = 'required|min:2';
-            }
-        }
-
         $formField = json_decode($form->form_builder_json);
 
         foreach ($formField as $index => $field){
@@ -138,28 +131,13 @@ class MySubmissionController extends Controller
             foreach ($uploadedFiles as $key => $file) {
                 // store the file and set it's path to the value of the key holding it
                 if ($file->isValid()) {
-                    $input[$key] = $file->store('fb_uploads', 'public');
+                    $input[$key] = $file->store('form_files');
                 }
             }
 
             $data = [
                 'content' => $input,
             ];
-
-            if($form->payment_enable){
-                $paymentDetails = collect(json_decode($form->payment_details));
-                if($request->has('payment_option_name')){
-                    foreach($request->payment_option_name as $payment_option){
-                        $amount = $paymentDetails->where('payment_option_name', $payment_option)->first()->payment_option_value;
-                        $payment_details[] = [
-                            'payment_option_name' => $payment_option,
-                            'payment_option_amount' => $amount,
-                        ];
-                    }
-                }
-            }
-
-            $data['payment_details'] = json_encode($payment_details);
 
             $submission->update($data);
 
