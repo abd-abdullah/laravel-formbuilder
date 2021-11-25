@@ -141,8 +141,8 @@ jQuery(function() {
                 visibility: $('#visibility').val(),
                 multiple_submit: $('#multiple_submit').val(),
                 payment_enable: $('#payment_enable').val(),
-                'payment_option_name[]': $('input[name^=payment_option_name]').val(),
-                'payment_option_value[]': $('input[name^=payment_option_value]').val(),
+                'payment_option_name[]': $("input[name='payment_option_name[]']").map(function(){return $(this).val();}).get(),
+                'payment_option_value[]': $("input[name='payment_option_value[]']").map(function(){return $(this).val();}).get(),
                 allows_edit: $('#allows_edit').val(),
                 form_builder_json: formBuilderJSONData,
                 _token: window.FormBuilder.csrfToken
