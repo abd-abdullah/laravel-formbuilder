@@ -38,4 +38,10 @@ return [
     'models' => [
         'user' => \App\Models\User::class,
     ],
+
+
+    /**
+     * file store path
+     */
+    'file_path' => 'uploads', //after default disk path this path will concat
 ];
