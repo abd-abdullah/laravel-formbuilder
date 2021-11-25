@@ -181,7 +181,7 @@ class Submission extends Model
         if ($type == 'file') {
 		if(isset($this->content[$key])){
 			$file_link = asset($this->content[$key]);
-			$str = "<a href='{$file_link}'>{$str}</a>";
+			$str = "<a target='_blank' href='{$file_link}'>{$str}</a>";
 	    	} else {
 			$str = "No file";
 	    	}
