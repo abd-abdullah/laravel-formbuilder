@@ -74,14 +74,16 @@ class RenderFormController extends Controller
         $formField = json_decode($form->form_builder_json);
 
         foreach ($formField as $index => $field){
-            $rule = 'bail';
-            $rule .= (isset($field->required) ? '|required' : '');
-            $rule .= (isset($field->subtype) && $field->subtype == 'email') ? '|email' : '';
-            $rule .= ($field->type == 'text') ? '|min:0' : '';
-            $rule .= (isset($field->maxlength) && is_int($field->maxlength)) ? '|max:'.$field->maxlength : '';
-            $rule .= (isset($field->minlength) && is_int($field->minlength)) ? '|min:'.$field->minlength : '';
-
-            $rules[$field->name] = $rule;
+          if(isset($field->name)){
+                $rule = 'bail';
+                $rule .= (isset($field->required) ? '|required' : '');
+                $rule .= (isset($field->subtype) && $field->subtype == 'email') ? '|email' : '';
+                $rule .= ($field->type == 'text') ? '|min:0' : '';
+                $rule .= (isset($field->maxlength) && is_int($field->maxlength)) ? '|max:'.$field->maxlength : '';
+                $rule .= (isset($field->minlength) && is_int($field->minlength)) ? '|min:'.$field->minlength : '';
+               
+                $rules[$field->name] = $rule;
+            }
 
         }
 
