@@ -125,8 +125,7 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])
+        $form = Form::where('id' => $id])
                     ->with('user')
                     ->withCount('submissions')
                     ->firstOrFail();
@@ -144,9 +143,7 @@ class FormController extends Controller
      */
     public function edit($id)
     {
-        $user = auth()->user();
-
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['id' => $id])->firstOrFail();
 
         $pageTitle = 'Edit Form';
 
@@ -167,8 +164,7 @@ class FormController extends Controller
      */
     public function update(SaveFormRequest $request, $id)
     {
-        $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['id' => $id])->firstOrFail();
 
         $input = $request->except('_token');
         $input['payment_enable'] = ($request->payment_enable == 'yes') ? 1 : 0;
@@ -210,8 +206,7 @@ class FormController extends Controller
      */
     public function destroy($id)
     {
-        $user = auth()->user();
-        $form = Form::where(['user_id' => $user->id, 'id' => $id])->firstOrFail();
+        $form = Form::where(['id' => $id])->firstOrFail();
         $form->delete();
 
         // dispatch the event
