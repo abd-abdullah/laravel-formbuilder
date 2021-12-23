@@ -33,9 +33,7 @@ class SubmissionController extends Controller
      */
     public function index($form_id)
     {
-        $user = auth()->user();
-
-        $form = Form::where(['user_id' => $user->id, 'id' => $form_id])
+        $form = Form::where(['id' => $form_id])
                     ->with(['user'])
                     ->firstOrFail();
 
