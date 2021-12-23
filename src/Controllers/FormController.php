@@ -39,7 +39,9 @@ class FormController extends Controller
     {
         $pageTitle = "Forms";
 
-        $forms = Form::getForUser(auth()->user());
+        $forms = Form::withCount('submissions')
+            ->latest()
+            ->paginate(100);
 
         return view('formbuilder::forms.index', compact('pageTitle', 'forms'));
     }
