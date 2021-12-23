@@ -125,7 +125,7 @@ class FormController extends Controller
      */
     public function show($id)
     {
-        $form = Form::where('id' => $id])
+        $form = Form::where(['id' => $id])
                     ->with('user')
                     ->withCount('submissions')
                     ->firstOrFail();
